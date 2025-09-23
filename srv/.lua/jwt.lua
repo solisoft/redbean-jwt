@@ -253,7 +253,6 @@ function JWS.VerifyTable(jwtTable, key, algorithms)
     assert(type(jwtTable.header) == "table", "Parameter: 'jwtTable' does not contain a header table")
     assert(jwtTable.payload ~= nil, "Parameter: 'jwtTable' does not contain a payload")
 
-
     -- Claims (optional)
     if(jwtTable.payload.nbf ~= nil) then
         assert(type(jwtTable.payload.nbf) == "number", "Claim: 'nfb' must be a number")
