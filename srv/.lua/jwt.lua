@@ -260,7 +260,7 @@ function JWS.VerifyTable(jwtTable, key, algorithms)
         assert(jwtTable.payload.nbf <= GetDate(), "Claim: 'nfb' is not valid")
     end
 
-    if(jwtTable.payload.exp ~= nil then
+    if(jwtTable.payload.exp ~= nil) then
         assert(type(jwtTable.payload.exp) == "number", "Claim: 'exp' must be a number")
         assert(jwtTable.payload.exp >= GetDate(), "Claim: 'exp' must not be expired")
     end
