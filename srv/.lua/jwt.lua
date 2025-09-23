@@ -253,9 +253,15 @@ function JWS.VerifyTable(jwtTable, key, algorithms)
     assert(type(jwtTable.header) == "table", "Parameter: 'jwtTable' does not contain a header table")
     assert(jwtTable.payload ~= nil, "Parameter: 'jwtTable' does not contain a payload")
 
-    if(type(jwtTable.payload.exp) == "number") then
+
+    -- Claims (optional)
+    if(jwtTable.payload.nbf ~= nil and type(jwtTable.payload.nbf) == "number") then
+        assert(jwtTable.payload.nbf <= GetDate(), "Claim: 'nfb' is not valid")
+    end
+    if(jwtTable.payload.exp ~= nil and type(jwtTable.payload.exp) == "number") then
         assert(jwtTable.payload.exp >= GetDate(), "Claim: 'exp' must not be expired")
     end
+
     -- if no algorithms are specified, fall back onto the supported algorithms
     algorithms = algorithms or JWA.supported
     if type(algorithms) == "string" then algorithms = { algorithms } end
