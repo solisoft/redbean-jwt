@@ -255,10 +255,13 @@ function JWS.VerifyTable(jwtTable, key, algorithms)
 
 
     -- Claims (optional)
-    if(jwtTable.payload.nbf ~= nil and type(jwtTable.payload.nbf) == "number") then
+    if(jwtTable.payload.nbf ~= nil) then
+        assert(type(jwtTable.payload.nbf) == "number", "Claim: 'nfb' must be a number")
         assert(jwtTable.payload.nbf <= GetDate(), "Claim: 'nfb' is not valid")
     end
-    if(jwtTable.payload.exp ~= nil and type(jwtTable.payload.exp) == "number") then
+
+    if(jwtTable.payload.exp ~= nil then
+        assert(type(jwtTable.payload.exp) == "number", "Claim: 'exp' must be a number")
         assert(jwtTable.payload.exp >= GetDate(), "Claim: 'exp' must not be expired")
     end
 
